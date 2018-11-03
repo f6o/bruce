@@ -1,37 +1,32 @@
 #include <utmp.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #include <stdio.h>
 
-int parse(int argc, char **argv)
-{
-  printf("%d\n", argc);
-  while ( argc-- > 0 ) {
-    printf("%s\n", *argv);
-    argv++;
-  }
+void
+show_info (struct utmp *u) {
+  printf("%s\t", u->ut_user);
+  printf("%s\t", u->ut_line);
+  printf("%s\t", u->ut_host);
+  printf("\n");
 }
 
-int main(int argc, char** argv)
+int
+main(int argc, char** argv)
 {
-  // parse(argc, argv);
-  printf("%s\n", UTMP_FILE);
+  struct utmp u;
+  int fd = open(UTMP_FILE, O_RDONLY);
+  ssize_t s = read(fd, &u, sizeof(u));
 
-  utmpname(UTMP_FILE);
-  setutent();
-
-  struct utmp *u = getutent();
-
-  printf("USER\tTTY\tFROM\n");
-  while ( u != NULL ) {
-    if ( u->ut_type == USER_PROCESS ) {
-      printf("%s\t", u->ut_user);
-      printf("%s\t", u->ut_line);
-      printf("%s\t", u->ut_host);
-      printf("\n");
-    }
-    u = getutent();
+  while ( s > 0 ) {
+    if ( u.ut_type == USER_PROCESS )
+      show_info(&u);
+    s = read(fd, &u, sizeof(u));
   }
-  
-  endutent();
+
+  close(fd);
 
   // TODO implement unix command: w
   // online man: https://linux.die.net/man/1/w
