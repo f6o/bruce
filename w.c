@@ -4,6 +4,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 void
 show_info (struct utmp *u) {
@@ -18,12 +19,15 @@ main(int argc, char** argv)
 {
   struct utmp u;
   int fd = open(UTMP_FILE, O_RDONLY);
-  ssize_t s = read(fd, &u, sizeof(u));
-
-  while ( s > 0 ) {
+  if ( fd == -1 ) {
+    perror(UTMP_FILE);
+    exit(1);
+  }
+  
+  ssize_t s;
+  while ( ( s = read(fd, &u, sizeof(u)) ) > 0 ) {
     if ( u.ut_type == USER_PROCESS )
       show_info(&u);
-    s = read(fd, &u, sizeof(u));
   }
 
   close(fd);
