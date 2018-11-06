@@ -2,6 +2,9 @@
 #include <sys/resource.h>
 #include <stdio.h>
 
+/*
+ * SEE apue.3e section 7.11 OR man getrlimit
+ */
 void print_limit(const char *, int);
 #define doit(name) print_limit(#name,name)
 
