@@ -23,7 +23,9 @@ main(int argc, char** argv)
   int src = open(argv[1], O_RDONLY);
   if ( src == -1 )
     error("could not open the source file.");
-  int dst = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, FILE_MODE);
+  int dst = open(argv[2],
+                 O_WRONLY | O_CREAT | O_TRUNC,
+                 S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
   if ( dst == -1 ) {
     error("could not create the dest file.");
   }
