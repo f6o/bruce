@@ -5,6 +5,7 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
+#define BUFSIZE 64
 
 void
 error(const char * msg) {
@@ -30,6 +31,12 @@ main(int argc, char** argv)
     error("could not create the dest file.");
   }
 
+  char buf[BUFSIZE];
+  size_t s = sizeof(char)*BUFSIZE;
+  ssize_t t;
+  while ( (t = read(src, buf, s)) > 0 ) {
+    write(dst, buf, t);
+  }
   close(src);
   close(dst);
 }
