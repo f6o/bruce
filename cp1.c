@@ -35,7 +35,8 @@ main(int argc, char** argv)
   size_t s = sizeof(char)*BUFSIZE;
   ssize_t t;
   while ( (t = read(src, buf, s)) > 0 ) {
-    write(dst, buf, t);
+    if ( write(dst, buf, t) != t )
+      error("write error");
   }
   close(src);
   close(dst);
