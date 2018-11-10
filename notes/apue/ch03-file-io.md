@@ -53,5 +53,21 @@ Linux においては vノードはなく, 汎用iノードを使っている.
 * fsync: 単一のファイルに対してのみディスクの書き出しをする
 * fdatasync: fdata とだいたいいっしょ。fsync はファイルの属性も同期するが, fdatasync はデータ部分のみ。
 
-## 3.14 関数 fcntl 
+## 3.14 関数 fcntl
 
+オープンしているファイルの属性の変更
+
+* FDの複製: `F_DUPFD` or `F_DUPFD_CLOEXEC`
+* 記述子フラグの取得と設定: `F_GETFD` or `F_SETFD`
+* ステータスフラグの取得と設定: `F_GETFL` or `F_SETFL`
+* 非同期入出力の所有者の取得と設定: `F_GETOWN` or `F_SETOWN`
+* レコードロックの取得と設定 (これについてはまたあとで: 14.3)
+
+### F_DUPFD/F_DUPFD_CLOEXEC
+
+### F_GETFD/F_SETFD
+
+### F_GETFL/F_SETFL
+
+### F_GETOWN/F_SETOWN
+`SIGIO` と `SIGURG` を受け取るプロセスやプロセスグループを取得する see 14.5.2
