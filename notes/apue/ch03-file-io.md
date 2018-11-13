@@ -63,11 +63,17 @@ Linux においては vノードはなく, 汎用iノードを使っている.
 * 非同期入出力の所有者の取得と設定: `F_GETOWN` or `F_SETOWN`
 * レコードロックの取得と設定 (これについてはまたあとで: 14.3)
 
-### F_DUPFD/F_DUPFD_CLOEXEC
-
-### F_GETFD/F_SETFD
-
-### F_GETFL/F_SETFL
-
-### F_GETOWN/F_SETOWN
+* F_DUPFD/F_DUPFD_CLOEXEC
+* F_GETFD/F_SETFD
+* F_GETFL/F_SETFL
+* F_GETOWN/F_SETOWN
 `SIGIO` と `SIGURG` を受け取るプロセスやプロセスグループを取得する see 14.5.2
+
+### 例
+
+* ファイル記述子を指定し、その記述子に設定されているファイルフラグを表示する
+  `~/bruce/reference/apue.3e/fileio/fileflags.c`
+* ファイルステータスフラグを変更するライブラリ
+  これを利用して `O_SYNC` や `fsync` などのディスク同期を利用した場合とそうでない場合について `time` をとる
+  => Linux の遅延書き出しと同期書き出しには差がほとんどないらしい
+  `~/bruce/copy_with_sync.c`
