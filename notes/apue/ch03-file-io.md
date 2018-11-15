@@ -55,7 +55,9 @@ Linux においては vノードはなく, 汎用iノードを使っている.
 
 ## 3.14 関数 fcntl
 
-オープンしているファイルの属性の変更
+オープンしているファイルの記述子を指定し属性の変更する
+
+### コマンド
 
 * FDの複製: `F_DUPFD` or `F_DUPFD_CLOEXEC`
 * 記述子フラグの取得と設定: `F_GETFD` or `F_SETFD`
@@ -75,5 +77,32 @@ Linux においては vノードはなく, 汎用iノードを使っている.
   `~/bruce/reference/apue.3e/fileio/fileflags.c`
 * ファイルステータスフラグを変更するライブラリ
   これを利用して `O_SYNC` や `fsync` などのディスク同期を利用した場合とそうでない場合について `time` をとる
-  => Linux の遅延書き出しと同期書き出しには差がほとんどないらしい
+  => Linux の遅延書き出しと同期書き出しには差がほとんどない
   `~/bruce/copy_with_sync.c`
+* 非ブロックパイプに対して使う (パイプは記述子でしかないため)
+
+## 3.15 関数 ioctl
+
+* 記述子に対するIO操作のがらくたいれ
+* デバイスドライバでは ioctl コマンドを定義できる
+* `man ioctl_list` でコマンドの定数一覧が参照できる
+
+### 例
+
+* 磁気テープ操作 (個人では使わなそう...)
+* サウンドデバイス `include/linux/soundcard.h`
+* `man socket` の引用
+
+> An fcntl(2) F_SETOWN operation can be used to specify a process or process group to receive a SIGURG signal when the out-of-band data arrives
+> or SIGPIPE signal when a SOCK_STREAM connection breaks unexpectedly. This operation may also be used to set the process or process group that receives the I/O and asynchronous notification
+> of I/O events via SIGIO. Using F_SETOWN is equivalent to an ioctl(2) call with the FIOSETOWN or SIOCSPGRP argument.
+
+## 3.16 /dev/fd
+
+* /dev/fd/0 などオープンされた記述子に対応するファイルがある
+* 記述子 n がオープンしてあるとき, ファイル /dev/fd/n を開くこと == 記述子 n を複製すること
+* Tom Duff が開発し, Research UNIX System 8th Edition で導入 [Wikipedia](https://en.wikipedia.org/wiki/Research_Unix#Versions)
+* /dev/fd は /proc/self/fd のシンボリックリンクなので, `open('/dev/fd/0')` で得られるファイル記述子のモードと
+  /dev/fd/0 のファイル記述子のモードとは異る
+ TODO: 実際に確認する
+ Linux(Kernel 4.14.74-07727-g7815dfea1ba2, aarch64, Chrome OS 内のVM上) で確認
