@@ -212,3 +212,6 @@ struct stat64
 
 ## 4.14 ファイルシステム
 
+* UFSはBerkeley Fast File Systemに基づいている
+-> Wikipedia [Unix File System](https://ja.wikipedia.org/wiki/Unix_File_System) [英語](https://en.wikipedia.org/wiki/Unix_File_System)
+* [A Fast File System for UNIX, 1984](https://github.com/sergev/4.4BSD-Lite2/blob/master/usr/share/doc/smm/05.fastfs.pdf?raw=true)
