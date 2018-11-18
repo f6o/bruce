@@ -8,4 +8,4 @@ taken from http://www.apuebook.com/src.3e.tar.gz
 
 * https://www.pearson.com/us/higher-education/program/Molay-Understanding-UNIX-LINUX-Programming-A-Guide-to-Theory-and-Practice/PGM190781.html?tab=resources
 * http://www.prenhall.com/molay
-
+* http://www.unix.org/what_is_unix/single_unix_specification.html
