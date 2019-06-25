@@ -1,15 +1,17 @@
+#ifndef __QUEUE_H_INCLUDED
+#define __QUEUE_H_INCLUDED
+
 #include <string.h>
+#include <stdio.h>
 
 #define MAX_QUEUE_LEN 100
-#define MAX_URL_STRING_LEN 1024
+#define MAX_STRING_LEN 1024
 
-typedef char urlstring[MAX_URL_STRING_LEN];
+typedef char string[MAX_STRING_LEN];
 
-urlstring queue[MAX_QUEUE_LEN] = { 0 };
-int tail = 0;
-int head = 0;
-
-int enqueue(urlstring);
-urlstring *dequeue();
-urlstring *top();
+void print_all();
+int enqueue(const string);
+string *dequeue();
+string *top();
 void clear();
+#endif

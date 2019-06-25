@@ -9,11 +9,30 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+#include "queue.h"
+
 int main()
+{
+  if ( enqueue("one") < 0 ) {
+    return 0;
+  }
+  enqueue("two");
+  enqueue("three");
+
+  string *strp = dequeue();
+  printf("dequeue: %s\n", *strp);
+  strp = dequeue();
+  printf("dequeue: %s\n", *strp);
+  strp = dequeue();
+  printf("dequeue: %s\n", *strp);
+  return 0;
+}
+
+int xmain()
 {
   printf("start\n");
   int pid = fork();
-  int status, terminated;
+  int status;
   volatile int k = 0;
   int i, j;
 
