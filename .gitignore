@@ -2,3 +2,5 @@
 queue/main
 queue/main.o
 queue/queue.o
+network/*.o
+network/a.out
