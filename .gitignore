@@ -1,6 +1,8 @@
 *~
-queue/main
-queue/main.o
-queue/queue.o
+syscall/*.o
+syscall/a.out
+syscall/queue/main
+syscall/queue/main.o
+syscall/queue/queue.o
 network/*.o
 network/a.out
